@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">NavigationCiceroneExample</string>
+    <string name="app_name">Navigation Cicerone Example</string>
+    <string name="open_welcome_scenario_button">Open welcome scenario</string>
+    <string name="open_main_screen_button">Open main screen</string>
+    <string name="intro_screen_title">Intro screen</string>
+    <string name="welcome_screen_title">Welcome scenario</string>
+    <string name="open_next_step_button">Open next step</string>
+    <string name="finish_welcome_scenario_button">Finish welcome scenario</string>
 </resources>
