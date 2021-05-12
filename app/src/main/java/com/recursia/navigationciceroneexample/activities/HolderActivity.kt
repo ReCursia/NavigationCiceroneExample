@@ -2,6 +2,7 @@ package com.recursia.navigationciceroneexample.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.Command
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.NavigatorHolder
@@ -9,6 +10,7 @@ import com.github.terrakok.cicerone.Replace
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.recursia.navigationciceroneexample.R
 import com.recursia.navigationciceroneexample.Screens
+import com.recursia.navigationciceroneexample.common.BackButtonListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -43,5 +45,22 @@ class HolderActivity : AppCompatActivity() {
     override fun onPause() {
         navigatorHolder.removeNavigator()
         super.onPause()
+    }
+
+    override fun onBackPressed() {
+        val fm = supportFragmentManager
+        var fragment: Fragment? = null
+        val fragments = fm.fragments
+        for (f in fragments) {
+            if (f.isVisible) {
+                fragment = f
+                break
+            }
+        }
+        if (fragment != null && fragment is BackButtonListener) {
+            fragment.onBackPressed()
+        } else {
+            super.onBackPressed()
+        }
     }
 }

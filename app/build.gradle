@@ -47,6 +47,8 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
     // Cicerone
     implementation "com.github.terrakok:cicerone:7.0"
+    // Lottie
+    implementation "com.airbnb.android:lottie:$lottie_version"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

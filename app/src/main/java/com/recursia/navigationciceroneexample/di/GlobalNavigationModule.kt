@@ -8,7 +8,7 @@ import dagger.hilt.android.components.ActivityComponent
 
 @Module
 @InstallIn(ActivityComponent::class)
-object NavigationModule {
+object GlobalNavigationModule {
 
     private val cicerone = Cicerone.create()
 

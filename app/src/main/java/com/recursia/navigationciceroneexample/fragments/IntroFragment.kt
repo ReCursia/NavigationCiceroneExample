@@ -7,11 +7,12 @@ import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.Router
 import com.recursia.navigationciceroneexample.R
 import com.recursia.navigationciceroneexample.Screens
+import com.recursia.navigationciceroneexample.common.BackButtonListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class IntroFragment : Fragment(R.layout.fragment_intro) {
+class IntroFragment : Fragment(R.layout.fragment_intro), BackButtonListener {
 
     private lateinit var openWelcomeScreenButton: Button
     private lateinit var openMainScreenButton: Button
@@ -35,6 +36,8 @@ class IntroFragment : Fragment(R.layout.fragment_intro) {
         }
 
     }
+
+    override fun onBackPressed() = router.exit()
 
     companion object {
         fun newInstance() = IntroFragment()

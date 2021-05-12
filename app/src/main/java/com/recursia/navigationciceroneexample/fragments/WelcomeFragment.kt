@@ -8,11 +8,13 @@ import androidx.fragment.app.Fragment
 import com.github.terrakok.cicerone.Router
 import com.recursia.navigationciceroneexample.R
 import com.recursia.navigationciceroneexample.Screens
+import com.recursia.navigationciceroneexample.common.BackButtonListener
+import com.recursia.navigationciceroneexample.getChainText
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class WelcomeFragment : Fragment(R.layout.fragment_welcome) {
+class WelcomeFragment : Fragment(R.layout.fragment_welcome), BackButtonListener {
 
     private var chainCounter: Int = 0
 
@@ -26,7 +28,7 @@ class WelcomeFragment : Fragment(R.layout.fragment_welcome) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val args = requireArguments()
-        chainCounter = args.getInt(CHAIN_COUNTER_ARG, CHAIN_TEXT_DEFAULT_VALUE)
+        chainCounter = args.getInt(CHAIN_COUNTER_ARG)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,7 +38,7 @@ class WelcomeFragment : Fragment(R.layout.fragment_welcome) {
             chainTextView = findViewById(R.id.screen_chain)
             finishWelcome = findViewById(R.id.finish_welcome_scenario)
         }
-        chainTextView.text = getChainText()
+        chainTextView.text = getChainText(chainCounter)
         openNext.setOnClickListener {
             router.navigateTo(Screens.WelcomeScreen(++chainCounter))
         }
@@ -45,20 +47,11 @@ class WelcomeFragment : Fragment(R.layout.fragment_welcome) {
         }
     }
 
-    private fun getChainText() = buildString {
-        for (count in 1..chainCounter) {
-            if (count == 1) {
-                append(count)
-            } else {
-                append(" → $count")
-            }
-        }
-    }
+    override fun onBackPressed() = router.exit()
 
     companion object {
 
-        private const val CHAIN_COUNTER_ARG = "CHAIN_TEXT_ARG"
-        private const val CHAIN_TEXT_DEFAULT_VALUE = 1
+        private const val CHAIN_COUNTER_ARG = "CHAIN_COUNTER_ARG"
 
         fun newInstance(chainCount: Int = 1) = WelcomeFragment().apply {
             arguments = Bundle().apply {

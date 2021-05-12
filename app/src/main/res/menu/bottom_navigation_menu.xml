@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab_1"
+        android:enabled="true"
+        android:icon="@drawable/outline_question_answer_24"
+        android:title="@string/first_tab_title" />
+
+    <item
+        android:id="@+id/tab_2"
+        android:enabled="true"
+        android:icon="@drawable/outline_home_24"
+        android:title="@string/second_tab_title" />
+
+    <item
+        android:id="@+id/tab_3"
+        android:enabled="true"
+        android:icon="@drawable/outline_account_circle_24"
+        android:title="@string/third_tab_title" />
+</menu>
