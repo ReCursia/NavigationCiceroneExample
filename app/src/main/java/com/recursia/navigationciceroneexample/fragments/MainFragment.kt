@@ -5,8 +5,9 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.recursia.navigationciceroneexample.R
+import com.recursia.navigationciceroneexample.common.BackButtonListener
 
-class MainFragment : Fragment(R.layout.fragment_main) {
+class MainFragment : Fragment(R.layout.fragment_main), BackButtonListener {
 
     private lateinit var bottomNavigation: BottomNavigationView
 
@@ -30,10 +31,23 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 else -> throw IllegalStateException("Undefined menu item")
             }
         }
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null && !isTabFragmentVisible()) {
             selectTab(getString(R.string.first_tab_title))
         }
     }
+
+    override fun onBackPressed(): Boolean {
+        val selectedTabTag = when (bottomNavigation.selectedItemId) {
+            R.id.tab_1 -> getString(R.string.first_tab_title)
+            R.id.tab_2 -> getString(R.string.second_tab_title)
+            R.id.tab_3 -> getString(R.string.third_tab_title)
+            else -> throw IllegalStateException("Undefined menu item")
+        }
+        val fragment = childFragmentManager.findFragmentByTag(selectedTabTag)
+        return fragment != null && fragment is BackButtonListener && fragment.onBackPressed()
+    }
+
+    private fun isTabFragmentVisible() = childFragmentManager.fragments.isNotEmpty()
 
     private fun selectTab(tabName: String) {
         val fm = childFragmentManager

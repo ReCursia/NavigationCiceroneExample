@@ -40,14 +40,17 @@ class WelcomeFragment : Fragment(R.layout.fragment_welcome), BackButtonListener 
         }
         chainTextView.text = getChainText(chainCounter)
         openNext.setOnClickListener {
-            router.navigateTo(Screens.WelcomeScreen(++chainCounter))
+            router.navigateTo(Screens.WelcomeScreen(chainCounter + 1))
         }
         finishWelcome.setOnClickListener {
             router.newRootScreen(Screens.MainScreen())
         }
     }
 
-    override fun onBackPressed() = router.exit()
+    override fun onBackPressed(): Boolean {
+        router.exit()
+        return true
+    }
 
     companion object {
 

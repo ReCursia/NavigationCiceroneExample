@@ -37,7 +37,10 @@ class IntroFragment : Fragment(R.layout.fragment_intro), BackButtonListener {
 
     }
 
-    override fun onBackPressed() = router.exit()
+    override fun onBackPressed(): Boolean {
+        router.exit()
+        return true
+    }
 
     companion object {
         fun newInstance() = IntroFragment()

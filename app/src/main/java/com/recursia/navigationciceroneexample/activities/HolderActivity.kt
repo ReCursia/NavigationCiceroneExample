@@ -31,10 +31,17 @@ class HolderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.container)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         if (savedInstanceState == null) {
             navigator.applyCommands(arrayOf(Replace(Screens.IntroScreen())))
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     override fun onResumeFragments() {
@@ -57,8 +64,8 @@ class HolderActivity : AppCompatActivity() {
                 break
             }
         }
-        if (fragment != null && fragment is BackButtonListener) {
-            fragment.onBackPressed()
+        if (fragment != null && fragment is BackButtonListener && fragment.onBackPressed()) {
+            return
         } else {
             super.onBackPressed()
         }

@@ -54,7 +54,7 @@ class TabContentFragment : Fragment(R.layout.fragment_tab), BackButtonListener {
             ciceroneHolder.getCicerone(tabName).router.navigateTo(
                 Screens.TabFragment(
                     tabName,
-                    ++chainCounter
+                    chainCounter + 1
                 )
             )
         }
@@ -63,8 +63,9 @@ class TabContentFragment : Fragment(R.layout.fragment_tab), BackButtonListener {
         }
     }
 
-    override fun onBackPressed() {
+    override fun onBackPressed(): Boolean {
         ciceroneHolder.getCicerone(tabName).router.exit()
+        return true
     }
 
     companion object {

@@ -51,11 +51,9 @@ class TabContainerFragment : Fragment(R.layout.container), BackButtonListener {
         super.onPause()
     }
 
-    override fun onBackPressed() {
+    override fun onBackPressed(): Boolean {
         val fragment = childFragmentManager.findFragmentById(R.id.container)
-        if (fragment != null && fragment is BackButtonListener) {
-            fragment.onBackPressed()
-        }
+        return fragment != null && fragment is BackButtonListener && fragment.onBackPressed()
     }
 
     companion object {

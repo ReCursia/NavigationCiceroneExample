@@ -13,8 +13,9 @@ class SellFragment : Fragment(R.layout.fragment_sell), BackButtonListener {
     @Inject
     lateinit var router: Router
 
-    override fun onBackPressed() {
+    override fun onBackPressed(): Boolean {
         router.exit()
+        return true
     }
 
     companion object {
