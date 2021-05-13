@@ -11,6 +11,7 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.recursia.navigationciceroneexample.R
 import com.recursia.navigationciceroneexample.Screens
 import com.recursia.navigationciceroneexample.common.BackButtonListener
+import com.recursia.navigationciceroneexample.domain.WelcomeRepository
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -19,6 +20,9 @@ class HolderActivity : AppCompatActivity() {
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
+
+    @Inject
+    lateinit var welcomeRepository: WelcomeRepository
 
     private val navigator: Navigator = object : AppNavigator(this, R.id.container) {
 
@@ -35,7 +39,12 @@ class HolderActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         if (savedInstanceState == null) {
-            navigator.applyCommands(arrayOf(Replace(Screens.IntroScreen())))
+            val screen = if (welcomeRepository.isScenarioFinished) {
+                Screens.MainScreen()
+            } else {
+                Screens.WelcomeScreen()
+            }
+            navigator.applyCommands(arrayOf(Replace(screen)))
         }
     }
 

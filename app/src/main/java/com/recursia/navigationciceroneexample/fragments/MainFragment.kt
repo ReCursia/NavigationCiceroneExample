@@ -2,6 +2,7 @@ package com.recursia.navigationciceroneexample.fragments
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.recursia.navigationciceroneexample.R
@@ -15,21 +16,11 @@ class MainFragment : Fragment(R.layout.fragment_main), BackButtonListener {
         super.onViewCreated(view, savedInstanceState)
         bottomNavigation = view.findViewById(R.id.bottom_navigation)
         bottomNavigation.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.tab_1 -> selectTab(getString(R.string.first_tab_title))
-                R.id.tab_2 -> selectTab(getString(R.string.second_tab_title))
-                R.id.tab_3 -> selectTab(getString(R.string.third_tab_title))
-                else -> throw IllegalStateException("Undefined menu item")
-            }
+            selectTab(getSelectedTabTag(it.itemId))
             true
         }
         bottomNavigation.setOnNavigationItemReselectedListener {
-            when (it.itemId) {
-                R.id.tab_1 -> selectTab(getString(R.string.first_tab_title))
-                R.id.tab_2 -> selectTab(getString(R.string.second_tab_title))
-                R.id.tab_3 -> selectTab(getString(R.string.third_tab_title))
-                else -> throw IllegalStateException("Undefined menu item")
-            }
+            selectTab(getSelectedTabTag(it.itemId))
         }
         if (savedInstanceState == null && !isTabFragmentVisible()) {
             selectTab(getString(R.string.first_tab_title))
@@ -37,14 +28,16 @@ class MainFragment : Fragment(R.layout.fragment_main), BackButtonListener {
     }
 
     override fun onBackPressed(): Boolean {
-        val selectedTabTag = when (bottomNavigation.selectedItemId) {
-            R.id.tab_1 -> getString(R.string.first_tab_title)
-            R.id.tab_2 -> getString(R.string.second_tab_title)
-            R.id.tab_3 -> getString(R.string.third_tab_title)
-            else -> throw IllegalStateException("Undefined menu item")
-        }
+        val selectedTabTag = getSelectedTabTag(bottomNavigation.selectedItemId)
         val fragment = childFragmentManager.findFragmentByTag(selectedTabTag)
         return fragment != null && fragment is BackButtonListener && fragment.onBackPressed()
+    }
+
+    private fun getSelectedTabTag(@IdRes itemId: Int) = when (itemId) {
+        R.id.tab_1 -> getString(R.string.first_tab_title)
+        R.id.tab_2 -> getString(R.string.second_tab_title)
+        R.id.tab_3 -> getString(R.string.third_tab_title)
+        else -> throw IllegalStateException("Undefined menu item")
     }
 
     private fun isTabFragmentVisible() = childFragmentManager.fragments.isNotEmpty()

@@ -4,11 +4,11 @@ import com.github.terrakok.cicerone.Cicerone
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.components.SingletonComponent
 
 @Module
-@InstallIn(ActivityComponent::class)
-object GlobalNavigationModule {
+@InstallIn(SingletonComponent::class)
+class GlobalNavigationModule {
 
     private val cicerone = Cicerone.create()
 

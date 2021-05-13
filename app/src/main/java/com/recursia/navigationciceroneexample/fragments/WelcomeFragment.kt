@@ -9,6 +9,7 @@ import com.github.terrakok.cicerone.Router
 import com.recursia.navigationciceroneexample.R
 import com.recursia.navigationciceroneexample.Screens
 import com.recursia.navigationciceroneexample.common.BackButtonListener
+import com.recursia.navigationciceroneexample.domain.WelcomeRepository
 import com.recursia.navigationciceroneexample.getChainText
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -24,6 +25,9 @@ class WelcomeFragment : Fragment(R.layout.fragment_welcome), BackButtonListener 
 
     @Inject
     lateinit var router: Router
+
+    @Inject
+    lateinit var welcomeRepository: WelcomeRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +48,7 @@ class WelcomeFragment : Fragment(R.layout.fragment_welcome), BackButtonListener 
         }
         finishWelcome.setOnClickListener {
             router.newRootScreen(Screens.MainScreen())
+            welcomeRepository.isScenarioFinished = true
         }
     }
 
