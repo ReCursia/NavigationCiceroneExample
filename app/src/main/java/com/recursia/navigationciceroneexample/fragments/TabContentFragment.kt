@@ -26,6 +26,7 @@ class TabContentFragment : Fragment(R.layout.fragment_tab), BackButtonListener {
     private lateinit var openNextScreen: Button
     private lateinit var openSellScreen: Button
     private lateinit var resetWelcomeScenarioButton: Button
+    private lateinit var openProfile: Button
 
     @Inject
     lateinit var globalRouter: Router
@@ -53,12 +54,16 @@ class TabContentFragment : Fragment(R.layout.fragment_tab), BackButtonListener {
             openSellScreen = findViewById(R.id.open_sell_screen)
             chainTextView = findViewById(R.id.screen_chain)
             resetWelcomeScenarioButton = findViewById(R.id.reset_welcome_scenario)
+            openProfile = findViewById(R.id.open_profile)
         }
         title.text = tabName
         chainTextView.text = getChainText(chainCounter)
 
         if (tabName == getString(R.string.second_tab_title)) {
             resetWelcomeScenarioButton.visibility = View.VISIBLE
+        }
+        if (tabName == getString(R.string.third_tab_title)) {
+            openProfile.visibility = View.VISIBLE
         }
 
         openNextScreen.setOnClickListener {
@@ -75,6 +80,9 @@ class TabContentFragment : Fragment(R.layout.fragment_tab), BackButtonListener {
         resetWelcomeScenarioButton.setOnClickListener {
             resetWelcomeScenario()
             globalRouter.newRootScreen(Screens.WelcomeScreen(welcomeRepository.savedStepIndex))
+        }
+        openProfile.setOnClickListener {
+            globalRouter.navigateTo(Screens.ProfileScreen())
         }
     }
 

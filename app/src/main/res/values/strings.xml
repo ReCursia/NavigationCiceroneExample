@@ -13,4 +13,6 @@
     <string name="open_sell_screen_button">Open sell screen</string>
     <string name="sell_screen_title">This is sell screen!</string>
     <string name="reset_welcome_scenario_button">Reset welcome scenario</string>
+    <string name="open_profile_button">Open profile (second activity)</string>
+    <string name="profile_screen_title">Profile screen</string>
 </resources>
