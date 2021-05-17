@@ -24,6 +24,8 @@ class TabContainerFragment : Fragment(R.layout.container), BackButtonListener {
     @Inject
     lateinit var localCiceroneHolder: LocalCiceroneHolder
 
+    private val cicerone get() = localCiceroneHolder.getCicerone(tabName)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val args = requireArguments()
@@ -33,7 +35,7 @@ class TabContainerFragment : Fragment(R.layout.container), BackButtonListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState == null) {
-            localCiceroneHolder.getCicerone(tabName).router.replaceScreen(
+            cicerone.router.replaceScreen(
                 Screens.TabFragment(
                     tabName
                 )
@@ -43,11 +45,11 @@ class TabContainerFragment : Fragment(R.layout.container), BackButtonListener {
 
     override fun onResume() {
         super.onResume()
-        localCiceroneHolder.getCicerone(tabName).getNavigatorHolder().setNavigator(navigator)
+        cicerone.getNavigatorHolder().setNavigator(navigator)
     }
 
     override fun onPause() {
-        localCiceroneHolder.getCicerone(tabName).getNavigatorHolder().removeNavigator()
+        cicerone.getNavigatorHolder().removeNavigator()
         super.onPause()
     }
 

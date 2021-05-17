@@ -38,4 +38,13 @@
         android:layout_marginTop="12dp"
         android:text="@string/open_sell_screen_button" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/reset_welcome_scenario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:text="@string/reset_welcome_scenario_button" />
+
 </LinearLayout>

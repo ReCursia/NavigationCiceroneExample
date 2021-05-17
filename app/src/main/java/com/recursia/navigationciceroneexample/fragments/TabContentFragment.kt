@@ -10,6 +10,7 @@ import com.recursia.navigationciceroneexample.R
 import com.recursia.navigationciceroneexample.Screens
 import com.recursia.navigationciceroneexample.common.BackButtonListener
 import com.recursia.navigationciceroneexample.common.LocalCiceroneHolder
+import com.recursia.navigationciceroneexample.domain.WelcomeRepository
 import com.recursia.navigationciceroneexample.getChainText
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -24,12 +25,18 @@ class TabContentFragment : Fragment(R.layout.fragment_tab), BackButtonListener {
     private lateinit var chainTextView: TextView
     private lateinit var openNextScreen: Button
     private lateinit var openSellScreen: Button
+    private lateinit var resetWelcomeScenarioButton: Button
 
     @Inject
     lateinit var globalRouter: Router
 
     @Inject
+    lateinit var welcomeRepository: WelcomeRepository
+
+    @Inject
     lateinit var ciceroneHolder: LocalCiceroneHolder
+
+    private val cicerone get() = ciceroneHolder.getCicerone(tabName)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,13 +52,17 @@ class TabContentFragment : Fragment(R.layout.fragment_tab), BackButtonListener {
             openNextScreen = findViewById(R.id.go_next_button)
             openSellScreen = findViewById(R.id.open_sell_screen)
             chainTextView = findViewById(R.id.screen_chain)
+            resetWelcomeScenarioButton = findViewById(R.id.reset_welcome_scenario)
         }
         title.text = tabName
         chainTextView.text = getChainText(chainCounter)
 
+        if (tabName == getString(R.string.second_tab_title)) {
+            resetWelcomeScenarioButton.visibility = View.VISIBLE
+        }
 
         openNextScreen.setOnClickListener {
-            ciceroneHolder.getCicerone(tabName).router.navigateTo(
+            cicerone.router.navigateTo(
                 Screens.TabFragment(
                     tabName,
                     chainCounter + 1
@@ -61,10 +72,19 @@ class TabContentFragment : Fragment(R.layout.fragment_tab), BackButtonListener {
         openSellScreen.setOnClickListener {
             globalRouter.navigateTo(Screens.SellScreen())
         }
+        resetWelcomeScenarioButton.setOnClickListener {
+            resetWelcomeScenario()
+            globalRouter.newRootScreen(Screens.WelcomeScreen(welcomeRepository.savedStepIndex))
+        }
+    }
+
+    private fun resetWelcomeScenario() {
+        welcomeRepository.isScenarioFinished = false
+        welcomeRepository.savedStepIndex = 1
     }
 
     override fun onBackPressed(): Boolean {
-        ciceroneHolder.getCicerone(tabName).router.exit()
+        cicerone.router.exit()
         return true
     }
 

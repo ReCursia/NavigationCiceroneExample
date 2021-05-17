@@ -12,4 +12,5 @@
     <string name="go_next_button">Go next</string>
     <string name="open_sell_screen_button">Open sell screen</string>
     <string name="sell_screen_title">This is sell screen!</string>
+    <string name="reset_welcome_scenario_button">Reset welcome scenario</string>
 </resources>

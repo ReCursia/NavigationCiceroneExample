@@ -16,8 +16,15 @@ class WelcomeRepositoryImpl @Inject constructor(
             prefs.edit().putBoolean(IS_FINISHED, value).apply()
         }
 
+    override var savedStepIndex: Int
+        get() = prefs.getInt(SAVED_STEP_INDEX, 1)
+        set(value) {
+            prefs.edit().putInt(SAVED_STEP_INDEX, value).apply()
+        }
+
     companion object {
         private const val PREF_NAME = "WELCOME_PREF_NAME"
         private const val IS_FINISHED = "IS_FINISHED"
+        private const val SAVED_STEP_INDEX = "SAVED_STEP_INDEX"
     }
 }

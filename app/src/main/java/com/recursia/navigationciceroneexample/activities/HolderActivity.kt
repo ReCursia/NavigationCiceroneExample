@@ -42,7 +42,7 @@ class HolderActivity : AppCompatActivity() {
             val screen = if (welcomeRepository.isScenarioFinished) {
                 Screens.MainScreen()
             } else {
-                Screens.WelcomeScreen()
+                Screens.WelcomeScreen(chainCount = welcomeRepository.savedStepIndex)
             }
             navigator.applyCommands(arrayOf(Replace(screen)))
         }
