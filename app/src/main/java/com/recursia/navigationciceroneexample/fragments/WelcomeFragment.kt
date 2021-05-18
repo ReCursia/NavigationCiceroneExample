@@ -38,7 +38,7 @@ class WelcomeFragment : Fragment(R.layout.fragment_welcome), BackButtonListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         welcomeRepository.savedStepIndex = chainCounter
-        
+
         with(view) {
             openNext = findViewById(R.id.go_next_button)
             chainTextView = findViewById(R.id.screen_chain)
