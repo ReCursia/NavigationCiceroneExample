@@ -3,10 +3,7 @@ package com.recursia.navigationciceroneexample.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.github.terrakok.cicerone.Command
-import com.github.terrakok.cicerone.Navigator
-import com.github.terrakok.cicerone.NavigatorHolder
-import com.github.terrakok.cicerone.Replace
+import com.github.terrakok.cicerone.*
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.recursia.navigationciceroneexample.R
 import com.recursia.navigationciceroneexample.Screens
@@ -39,12 +36,14 @@ class HolderActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         if (savedInstanceState == null) {
-            val screen = if (welcomeRepository.isScenarioFinished) {
-                Screens.MainScreen()
+            val screens = if (welcomeRepository.isScenarioFinished) {
+                arrayOf(Replace(Screens.MainScreen()))
             } else {
-                Screens.WelcomeScreen(chainCount = welcomeRepository.savedStepIndex)
+                Array(welcomeRepository.savedStepIndex) {
+                    Forward(Screens.WelcomeScreen(it + 1))
+                }
             }
-            navigator.applyCommands(arrayOf(Replace(screen)))
+            navigator.applyCommands(screens)
         }
     }
 
