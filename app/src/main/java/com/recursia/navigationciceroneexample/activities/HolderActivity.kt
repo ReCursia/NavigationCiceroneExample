@@ -39,8 +39,12 @@ class HolderActivity : AppCompatActivity() {
             val screens = if (welcomeRepository.isScenarioFinished) {
                 arrayOf(Replace(Screens.MainScreen()))
             } else {
-                Array(welcomeRepository.savedStepIndex) {
-                    Forward(Screens.WelcomeScreen(it + 1))
+                Array(welcomeRepository.savedStepIndex) { index ->
+                    if (index == 0) {
+                        Replace(Screens.WelcomeScreen(index + 1))
+                    } else {
+                        Forward(Screens.WelcomeScreen(index + 1))
+                    }
                 }
             }
             navigator.applyCommands(screens)
