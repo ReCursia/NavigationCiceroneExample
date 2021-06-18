@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="first_tab_title">Question and answers</string>
+    <string name="second_tab_title">Home</string>
+    <string name="third_tab_title">Account</string>
+
+    <string name="welcome_screen_title">Welcome scenario</string>
+    <string name="open_next_step_button">Open next step</string>
+    <string name="finish_welcome_scenario_button">Finish welcome scenario</string>
+
+    <string name="go_next_button">Go next</string>
+    <string name="open_sell_screen_button">Open sell screen</string>
+    <string name="reset_welcome_scenario_button">Reset welcome scenario</string>
+    <string name="open_profile_button">Open profile (second activity)</string>
+</resources>

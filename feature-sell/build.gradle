@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
@@ -10,13 +10,13 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.recursia.navigationciceroneexample"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -35,7 +35,6 @@ android {
 }
 
 dependencies {
-    implementation project(":feature-main")
     implementation project(":navigation")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -49,4 +48,6 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
     // Cicerone
     implementation "com.github.terrakok:cicerone:$cicerone_version"
+    // Lottie
+    implementation "com.airbnb.android:lottie:$lottie_version"
 }

@@ -1,2 +1,7 @@
-include ':app'
 rootProject.name = "NavigationCiceroneExample"
+include ':utils'
+include ':navigation'
+include ':app'
+include ':feature-main'
+include ':feature-sell'
+include ':feature-profile'

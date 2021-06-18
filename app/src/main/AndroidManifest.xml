@@ -13,11 +13,10 @@
         <activity android:name=".activities.HolderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ProfileActivity" />
+        <activity android:name="com.example.feature_profile.activities.ProfileActivity" />
     </application>
 
 </manifest>
